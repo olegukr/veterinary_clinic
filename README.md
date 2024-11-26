@@ -66,8 +66,10 @@ This project is a patient management system designed for Margarita's veterinary 
  
 ```mermaid
 graph TD
-    Start((Start))
+    Start[Start]
     Menu[User selects an option from the main menu]
+    
+    %% Filter by Date Workflow
     FilterByDate[User selects 'Filter by Date']
     EnterDate[User enters a date dd/mm/yyyy]
     InvalidDate[System checks if the date is valid: Invalid?]
@@ -77,10 +79,26 @@ graph TD
     ShowList[Display list of moments]
     ViewDone[User finishes viewing moments]
     ShowMessage[Display message: Press any key to return to main menu]
-    End((End))
 
+    %% Create Meeting Workflow
+    CreateMeeting[User selects 'Create a appointment']
+    EnterMeetingDetails[User enters appointment details: Date, Time, Reason, Patient]
+    SaveMeeting[System saves the appointment]
+    MeetingSuccess[System confirms appointment creation]
+
+    %% Create Pet Workflow
+    CreatePet[User selects 'Create a Pet']
+    EnterPetDetails[User enters pet details: Name, Age, Breed, Gender, Owner Info]
+    SavePet[System saves the pet]
+    PetSuccess[System confirms pet creation]
+
+    %% Connections
     Start --> Menu
     Menu --> FilterByDate
+    Menu --> CreateMeeting
+    Menu --> CreatePet
+
+    %% Filter by Date Flow
     FilterByDate --> EnterDate
     EnterDate --> InvalidDate
     InvalidDate -->|Yes| ShowError
@@ -90,5 +108,18 @@ graph TD
     FetchMoments --> ShowList
     ShowList --> ViewDone
     ViewDone --> ShowMessage
-    ShowMessage --> End
+    ShowMessage --> Menu
+
+    %% Create Meeting Flow
+    CreateMeeting --> EnterMeetingDetails
+    EnterMeetingDetails --> SaveMeeting
+    SaveMeeting --> MeetingSuccess
+    MeetingSuccess --> Menu
+
+    %% Create Pet Flow
+    CreatePet --> EnterPetDetails
+    EnterPetDetails --> SavePet
+    SavePet --> PetSuccess
+    PetSuccess --> Menu
 ```
+
