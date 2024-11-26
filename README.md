@@ -60,5 +60,35 @@ This project is a patient management system designed for Margarita's veterinary 
 1. Clone the repository:
    ```bash
    git clone https://github.com/<your-username>/patient-management-system.git
-   cd patient-management-system
+   cd patient-management-system```
 
+### Activity diagram
+ 
+```mermaid
+graph TD
+    Start((Start))
+    Menu[User selects an option from the main menu]
+    FilterByDate[User selects 'Filter by Date']
+    EnterDate[User enters a date dd/mm/yyyy]
+    InvalidDate[System checks if the date is valid: Invalid?]
+    ShowError[Display error message: Invalid Date!]
+    Retry[User retries entering a valid date]
+    FetchMoments[Fetch moments for the selected date]
+    ShowList[Display list of moments]
+    ViewDone[User finishes viewing moments]
+    ShowMessage[Display message: Press any key to return to main menu]
+    End((End))
+
+    Start --> Menu
+    Menu --> FilterByDate
+    FilterByDate --> EnterDate
+    EnterDate --> InvalidDate
+    InvalidDate -->|Yes| ShowError
+    ShowError --> Retry
+    Retry --> EnterDate
+    InvalidDate -->|No| FetchMoments
+    FetchMoments --> ShowList
+    ShowList --> ViewDone
+    ViewDone --> ShowMessage
+    ShowMessage --> End
+```
