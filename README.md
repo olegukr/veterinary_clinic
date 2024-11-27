@@ -123,3 +123,60 @@ graph TD
     PetSuccess --> Menu
 ```
 
+### Class diagram
+
+```mermaid
+classDiagram
+    class Patient {
+        +String name
+        +int age
+        +String breed
+        +String gender
+        +String id
+        +String ownerName
+        +String ownerPhone
+        +List<Treatment> treatments
+        +addTreatment(Treatment treatment)
+        +getTreatments(): List<Treatment>
+    }
+    
+    class Appointment {
+        +String id
+        +Date date
+        +Time time
+        +String type
+        +String reason
+        +String status
+        +Patient patient
+        +updateStatus(String newStatus)
+    }
+    
+    class Treatment {
+        +String description
+        +Date date
+        +String result
+    }
+    
+    class User {
+        +String username
+        +String password
+        +String role
+        +authenticate(String password): boolean
+    }
+    
+    class System {
+        +List<Patient> patients
+        +List<Appointment> appointments
+        +addPatient(Patient patient)
+        +findPatient(String id): Patient
+        +addAppointment(Appointment appointment)
+        +findAppointmentsByDate(Date date): List<Appointment>
+    }
+
+    Patient "1" --> "*" Appointment : "has"
+    Patient "1" --> "*" Treatment : "has"
+    System "1" --> "*" Patient : "manages"
+    System "1" --> "*" Appointment : "manages"
+    User "1" --> "1" System : "accesses"
+```
+
