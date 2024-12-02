@@ -1,7 +1,7 @@
-package org.factoriaf5.contraller;
+package org.factoriaf5.vcp.controller;
 
-import org.factoriaf5.model.User;
-import org.factoriaf5.service.UserService;
+import org.factoriaf5.vcp.model.User;
+import org.factoriaf5.vcp.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
