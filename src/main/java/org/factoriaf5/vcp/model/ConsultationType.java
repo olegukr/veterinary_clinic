@@ -1,6 +1,6 @@
 package org.factoriaf5.vcp.model;
 
-public enum Consultation {
+public enum ConsultationType {
     STANDART,
     EMERGENCY;
 }
