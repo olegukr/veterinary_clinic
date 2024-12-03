@@ -18,17 +18,22 @@ public class Appointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private final long id;
+    private long id;
 
     private LocalDate appointmentDate;
 
     @Enumerated(EnumType.STRING) // Store enum as string in the database
     private ConsultationType consultation;
-    
+
     private String reason;
 
     @Enumerated(EnumType.STRING) // Store enum as string in the database
     private AppointmentSatus status;
+
+
+    
+    public Appointment() {
+    }
 
     public Appointment(LocalDate appointmentDate, ConsultationType consltation, String reason, AppointmentSatus status) {
         this.id = generateId();

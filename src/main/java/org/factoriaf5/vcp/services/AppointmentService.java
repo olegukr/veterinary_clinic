@@ -3,12 +3,22 @@ package org.factoriaf5.vcp.services;
 import java.util.List;
 
 import org.factoriaf5.vcp.model.Appointment;
+import org.factoriaf5.vcp.repository.AppointmentRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AppointmentService {
 
+    private AppointmentRepository repository;
+    
+
+    public AppointmentService(AppointmentRepository repository) {
+        this.repository = repository;
+    }
+
+
     public List<Appointment> findAll() {
+
 
         // List<Appointment> appointments = new ArrayList<>();
 
@@ -27,7 +37,7 @@ public class AppointmentService {
         // appointments.add(appointment1);
         // appointments.add(appointment2);
 
-        return null;
+        return repository.findAll();
     }
 
 }
