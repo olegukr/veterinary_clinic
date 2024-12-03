@@ -2,10 +2,20 @@ package org.factoriaf5.vcp.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="appointments")
 public class Appointment {
 
     private static long idCounter = 0;
-
+    
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private final long id;
     private LocalDate appointmentDate;
     private ConsultationType consultation;
