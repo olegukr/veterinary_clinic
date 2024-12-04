@@ -1,6 +1,7 @@
 package org.factoriaf5.vcp.controller;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -59,7 +60,7 @@ public class AppointmentConrollerTest {
         Appointment appointment2 = new Appointment( 
             LocalDate.of(2024, 12, 02), 
             ConsultationType.STANDARD, 
-            "Headage", 
+            "Routine health check-up", 
             AppointmentSatus.COMPLETED);
 
         appointments.add(appointment1);
@@ -78,6 +79,13 @@ public class AppointmentConrollerTest {
         
         // then
         assertThat(response.getStatus(), is(200));
+        assertThat(response.getContentAsString(), containsString("Routine health check-up"));
+        assertThat(response.getContentAsString(), containsString(LocalDate.of(2024,12,01).toString()));
+        assertThat(response.getContentAsString(), containsString("Headage"));
+        assertThat(response.getContentAsString(), containsString(ConsultationType.EMERGENCY.toString()));
+        assertThat(response.getContentAsString(), containsString(AppointmentSatus.PENDING.toString()));
+
+
 
         
 
