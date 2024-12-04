@@ -2,24 +2,51 @@ package org.factoriaf5.vcp.model;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "patients")
 public class Patient {
     
     private static int idCounter = 1;
-
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final long id;
+
+    @Column(nullable = false) 
     private String name;
-    private Long idUser;
+
+    @Column(nullable = false)
     private int age;
+
+    @Column(nullable = false)
     private String breed;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private GenderType gender;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     private String imageUrl;
 
    
-public Patient(Long idPatient, String name, Long idUser, int age, String breed, GenderType gender, String imageUrl) {
-    //Long idUser - ?
+public Patient(Long idPatient, String name, User user, int age, String breed, GenderType gender, String imageUrl) {
     this.id = idCounter++;
     this.name = name;
-    this.idUser = idUser;
+    this.user = user;
     this.age = age;
     this.breed = breed;
     this.gender = gender;
@@ -27,8 +54,8 @@ public Patient(Long idPatient, String name, Long idUser, int age, String breed, 
 }
 
 
-public Long getIdUser() {
-    return idUser;
+public User getUser() {
+    return user;
 }
 
 
@@ -72,8 +99,8 @@ public static void setIdCounter(int idCounter) {
 }
 
 
-public void setIdUser(Long idUser) {
-    this.idUser = idUser;
+public void User(User user) {
+    this.user = user;
 }
 
 public void setName(String name) {
