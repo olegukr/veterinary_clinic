@@ -2,6 +2,7 @@ package org.factoriaf5.vcp.controller;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -77,6 +78,10 @@ public class AppointmentConrollerTest {
         .andReturn()
         .getResponse();
         
+        System.out.println(response.getContentAsString());
+        System.out.println(mapper.writeValueAsString(appointments));
+
+
         // then
         assertThat(response.getStatus(), is(200));
         assertThat(response.getContentAsString(), containsString("Routine health check-up"));
@@ -84,8 +89,10 @@ public class AppointmentConrollerTest {
         assertThat(response.getContentAsString(), containsString("Headage"));
         assertThat(response.getContentAsString(), containsString(ConsultationType.EMERGENCY.toString()));
         assertThat(response.getContentAsString(), containsString(AppointmentSatus.PENDING.toString()));
-
-
+        assertThat(response.getContentAsString(), equalTo(mapper.writeValueAsString(appointments)));
+        // 
+// [{"id":1,"appointmentDate":"2024-12-01","consultation":"EMERGENCY","reason":"Headage","status":"PENDING"},
+// {"id":2,"appointmentDate":"2024-12-02","consultation":"STANDARD","reason":"Routine health check-up","status":"COMPLETED"}]
 
         
 
