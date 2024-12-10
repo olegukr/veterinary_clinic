@@ -2,7 +2,9 @@ package org.factoriaf5.vcp.controller;
 
 import java.util.Optional;
 
+import org.factoriaf5.vcp.dto.UserDTO;
 import org.factoriaf5.vcp.model.User;
+import org.factoriaf5.vcp.model.UserType;
 import org.factoriaf5.vcp.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,17 +26,29 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
-        if (user.getUsername() == null || user.getUsername().isEmpty()) {
+    public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO) {
+        if (userDTO.getUsername() == null || userDTO.getUsername().isEmpty()) {
             return ResponseEntity.badRequest().body("El nombre de usuario es obligatorio");
         }
-        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+        if (userDTO.getPassword() == null || userDTO.getPassword().isEmpty()) {
             return ResponseEntity.badRequest().body("La contraseña es obligatoria");
         }
-        if (user.getUsertype() == null) {
+        if (userDTO.getUsertype() == null || userDTO.getUsertype().isEmpty()) {
             return ResponseEntity.badRequest().body("El rol del usuario es obligatorio");
         }
-
+    
+        User user;
+        try {
+            user = new User(
+                userDTO.getUsername(),
+                userDTO.getPassword(),
+                UserType.valueOf(userDTO.getUsertype().toUpperCase()),
+                userDTO.getPhone()
+            );
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("El rol del usuario es inválido");
+        }
+    
         User registeredUser = userService.registerUser(user);
         return ResponseEntity.ok(registeredUser);
     }

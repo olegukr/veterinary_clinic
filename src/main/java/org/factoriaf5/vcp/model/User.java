@@ -33,11 +33,6 @@ public class User {
         this.password = password;
         this.usertype = usertype;
         this.phone = phone;
-        this.id = generateId();
-    }
-
-    private static synchronized long generateId() {
-        return ++idCounter;
     }
 
     public Long getId() {
