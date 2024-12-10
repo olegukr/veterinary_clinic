@@ -60,11 +60,11 @@ public class User {
         this.password = password;
     }
 
-    public UserType getUserType() {
+    public UserType getUsertype() {
         return usertype;
     }
 
-    public void setUserType(UserType usertype) {
+    public void setUsertype(UserType usertype) {
         this.usertype = usertype;
     }
 
