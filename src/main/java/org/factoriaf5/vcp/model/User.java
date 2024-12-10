@@ -12,8 +12,6 @@ import jakarta.persistence.Table;
 @Table(name = "users")
 public class User {
 
-    private static long idCounter = 0;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
