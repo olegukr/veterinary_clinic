@@ -2,7 +2,7 @@ package org.factoriaf5.vcp.controller;
 
 import java.util.Optional;
 
-import org.factoriaf5.dto.UserDTO;
+import org.factoriaf5.vcp.dto.UserDTO;
 import org.factoriaf5.vcp.model.User;
 import org.factoriaf5.vcp.model.UserType;
 import org.factoriaf5.vcp.services.UserService;

@@ -1,4 +1,4 @@
-package org.factoriaf5.dto;
+package org.factoriaf5.vcp.dto;
 
 public class UserDTO {
     private String username;
