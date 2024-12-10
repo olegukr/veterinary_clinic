@@ -22,16 +22,16 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private UserType userType;
 
     private String phone;
 
     public User() {}
 
-    public User(String username, String password, Role role, String phone) {
+    public User(String username, String password, UserType userType, String phone) {
         this.username = username;
         this.password = password;
-        this.role = role;
+        this.userType = userType;
         this.phone = phone;
         this.id = generateId();
     }
@@ -60,12 +60,12 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
+    public UserType getUserType() {
+        return userType;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
     public String getPhone() {
@@ -76,8 +76,4 @@ public class User {
         this.phone = phone;
     }
 
-    public enum Role {
-        ADMIN,
-        USER
-    }
 }

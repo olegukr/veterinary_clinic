@@ -31,7 +31,7 @@ public class UserController {
         if (user.getPassword() == null || user.getPassword().isEmpty()) {
             return ResponseEntity.badRequest().body("La contraseña es obligatoria");
         }
-        if (user.getRole() == null) {
+        if (user.getUserType() == null) {
             return ResponseEntity.badRequest().body("El rol del usuario es obligatorio");
         }
 

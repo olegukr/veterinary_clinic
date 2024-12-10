@@ -10,12 +10,9 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-    //private final PasswordEncoder passwordEncoder;
-
-    //public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+ 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        //this.passwordEncoder = passwordEncoder;
     }
 
     public User registerUser(User user) {
@@ -23,7 +20,6 @@ public class UserService {
             throw new IllegalArgumentException("El nombre de usuario ya existe");
         }
 
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -33,7 +29,6 @@ public class UserService {
 
     public boolean authenticate(String username, String password) {
         Optional<User> user = userRepository.findByUsername(username);
-        //return user.isPresent() && passwordEncoder.matches(password, user.get().getPassword());
         return user.isPresent();
     }
 }
