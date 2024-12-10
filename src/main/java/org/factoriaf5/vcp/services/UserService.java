@@ -1,5 +1,6 @@
 package org.factoriaf5.vcp.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.factoriaf5.vcp.model.User;
@@ -30,5 +31,9 @@ public class UserService {
     public boolean authenticate(String username, String password) {
         Optional<User> user = userRepository.findByUsername(username);
         return user.isPresent();
+    }
+    
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }
