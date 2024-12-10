@@ -22,16 +22,16 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private UserType userType;
+    private UserType usertype;
 
     private String phone;
 
     public User() {}
 
-    public User(String username, String password, UserType userType, String phone) {
+    public User(String username, String password, UserType usertype, String phone) {
         this.username = username;
         this.password = password;
-        this.userType = userType;
+        this.usertype = usertype;
         this.phone = phone;
         this.id = generateId();
     }
@@ -61,11 +61,11 @@ public class User {
     }
 
     public UserType getUserType() {
-        return userType;
+        return usertype;
     }
 
-    public void setUserType(UserType userType) {
-        this.userType = userType;
+    public void setUserType(UserType usertype) {
+        this.usertype = usertype;
     }
 
     public String getPhone() {
