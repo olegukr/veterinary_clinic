@@ -27,23 +27,23 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO) {
-        if (userDTO.getUsername() == null || userDTO.getUsername().isEmpty()) {
+        if (userDTO.username() == null || userDTO.username().isEmpty()) {
             return ResponseEntity.badRequest().body("El nombre de usuario es obligatorio");
         }
-        if (userDTO.getPassword() == null || userDTO.getPassword().isEmpty()) {
+        if (userDTO.password() == null || userDTO.password().isEmpty()) {
             return ResponseEntity.badRequest().body("La contraseña es obligatoria");
         }
-        if (userDTO.getUsertype() == null || userDTO.getUsertype().isEmpty()) {
+        if (userDTO.usertype() == null || userDTO.usertype().isEmpty()) {
             return ResponseEntity.badRequest().body("El rol del usuario es obligatorio");
         }
     
         User user;
         try {
             user = new User(
-                userDTO.getUsername(),
-                userDTO.getPassword(),
-                UserType.valueOf(userDTO.getUsertype().toUpperCase()),
-                userDTO.getPhone()
+                userDTO.username(),
+                userDTO.password(),
+                UserType.valueOf(userDTO.usertype().toUpperCase()),
+                userDTO.phone()
             );
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body("El rol del usuario es inválido");
