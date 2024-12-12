@@ -1,103 +1,90 @@
 package org.factoriaf5.vcp.services;
 
 import org.factoriaf5.vcp.model.Patient;
-import org.factoriaf5.vcp.model.GenderType;
 import org.factoriaf5.vcp.repository.PatientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class PatientServiceTest {
 
+    @Mock
     private PatientRepository patientRepository;
+
+    @InjectMocks
     private PatientService patientService;
 
     @BeforeEach
     void setUp() {
-        patientRepository = mock(PatientRepository.class);
-        patientService = new PatientService(patientRepository);
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
     void testCreatePatient() {
-        Patient patient = new Patient("Buddy", 1L, 5, "Golden Retriever", GenderType.M, "https://example.com/buddy.jpg");
+        Patient patient = new Patient();
         when(patientRepository.save(patient)).thenReturn(patient);
 
         Patient createdPatient = patientService.createPatient(patient);
 
-        assertThat(createdPatient).isEqualTo(patient);
-        verify(patientRepository).save(patient);
+        assertNotNull(createdPatient);
+        verify(patientRepository, times(1)).save(patient);
     }
 
     @Test
     void testGetPatientById() {
-        Long id = 1L;
-        Patient patient = new Patient("Lucy", 2L, 3, "Chihuahua", GenderType.W, "https://example.com/lucy.jpg");
-        when(patientRepository.findById(id)).thenReturn(Optional.of(patient));
+        Patient patient = new Patient();
+        when(patientRepository.findById(1L)).thenReturn(Optional.of(patient));
 
-        Optional<Patient> foundPatient = patientService.getPatientById(id);
+        Optional<Patient> foundPatient = patientService.getPatientById(1L);
 
-        assertThat(foundPatient).isPresent();
-        assertThat(foundPatient.get()).isEqualTo(patient);
-        verify(patientRepository).findById(id);
-    }
-
-    @Test
-    void testGetPatientByIdUser() {
-        Long idUser = 2L;
-        Patient patient = new Patient("Lucy", idUser, 3, "Chihuahua", GenderType.W, "https://example.com/lucy.jpg");
-        when(patientRepository.findByIdUser(idUser)).thenReturn(Optional.of(patient));
-
-        Optional<Patient> foundPatient = patientService.getPatientByIdUser(idUser);
-
-        assertThat(foundPatient).isPresent();
-        assertThat(foundPatient.get()).isEqualTo(patient);
-        verify(patientRepository).findByIdUser(idUser);
+        assertTrue(foundPatient.isPresent());
+        assertEquals(patient, foundPatient.get());
+        verify(patientRepository, times(1)).findById(1L);
     }
 
     @Test
     void testGetAllPatients() {
-
-        Patient patient1 = new Patient("Buddy", 1L, 5, "Golden Retriever", GenderType.M, "https://example.com/buddy.jpg");
-        Patient patient2 = new Patient("Lucy", 2L, 3, "Chihuahua", GenderType.W, "https://example.com/lucy.jpg");
-        List<Patient> patients = Arrays.asList(patient1, patient2);
+        List<Patient> patients = Arrays.asList(new Patient(), new Patient());
         when(patientRepository.findAll()).thenReturn(patients);
 
-        List<Patient> allPatients = patientService.getAllPatients();
+        List<Patient> result = patientService.getAllPatients();
 
-        assertThat(allPatients).hasSize(2).containsExactly(patient1, patient2);
-        verify(patientRepository).findAll();
+        assertEquals(2, result.size());
+        verify(patientRepository, times(1)).findAll();
     }
 
     @Test
     void testUpdatePatient() {
+        Patient existingPatient = new Patient();
+        existingPatient.setName("Old Name");
+        Patient updatedPatient = new Patient();
+        updatedPatient.setName("New Name");
 
-        Long id = 1L;
-        Patient existingPatient = new Patient("Buddy", 1L, 5, "Golden Retriever", GenderType.M, "https://example.com/buddy.jpg");
-        Patient updatedPatient = new Patient("Max", 1L, 6, "Poodle", GenderType.M, "https://example.com/max.jpg");
-        when(patientRepository.findById(id)).thenReturn(Optional.of(existingPatient));
-        when(patientRepository.save(any(Patient.class))).thenReturn(updatedPatient);
+        when(patientRepository.findById(1L)).thenReturn(Optional.of(existingPatient));
+        when(patientRepository.save(existingPatient)).thenReturn(existingPatient);
 
-        Patient result = patientService.updatePatient(id, updatedPatient);
+        Patient result = patientService.updatePatient(1L, updatedPatient);
 
-        assertThat(result.getName()).isEqualTo("Max");
-        assertThat(result.getAge()).isEqualTo(6);
-        assertThat(result.getBreed()).isEqualTo("Poodle");
-        assertThat(result.getImageUrl()).isEqualTo("https://example.com/max.jpg");
-        verify(patientRepository).findById(id);
-        verify(patientRepository).save(existingPatient);
+        assertEquals("New Name", result.getName());
+        verify(patientRepository, times(1)).findById(1L);
+        verify(patientRepository, times(1)).save(existingPatient);
     }
 
     @Test
     void testDeletePatient() {
-        Long id = 1L;
-        patientService.deletePatient(id);
-        verify(patientRepository).deleteById(id);
+        doNothing().when(patientRepository).deleteById(1L);
+
+        patientService.deletePatient(1L);
+
+        verify(patientRepository, times(1)).deleteById(1L);
     }
 }

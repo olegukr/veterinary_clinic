@@ -63,6 +63,10 @@ public class Patient {
         return user;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+ 
     public long getId() {
         return id;
     }
@@ -104,6 +108,7 @@ public class Patient {
     }
 
     public void setGender(GenderType gender) {
+        this.gender = gender;
     }
 
     public void setBreed(String breed) {
