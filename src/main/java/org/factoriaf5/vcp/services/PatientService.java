@@ -25,8 +25,8 @@ public class PatientService {
         return patientRepository.findById(id);
     }
 
-    public Optional<Patient> getPatientByIdUser(User user) {
-        return patientRepository.findByUser(user);
+    public List<Patient> getPatientByIdUser(Long userId) {
+        return patientRepository.findByUserId(userId);
     }
 
     public List<Patient> getAllPatients() {
@@ -41,6 +41,7 @@ public class PatientService {
                     patient.setBreed(updatedPatient.getBreed());
                     patient.setGender(updatedPatient.getGender());
                     patient.setImageUrl(updatedPatient.getImageUrl());
+                    patient.setUser(updatedPatient.getUser());
                     return patientRepository.save(patient);
                 })
                 .orElseThrow(() -> new RuntimeException("Patient not found"));
