@@ -1,7 +1,6 @@
 package org.factoriaf5.vcp.model;
 
 import jakarta.persistence.Column;
-//import org.springframework.web.multipart.MultipartFile;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -90,10 +89,6 @@ public class Patient {
     public static void setIdCounter(int idCounter) {
         Patient.idCounter = idCounter;
     }
-
-    // public void setIdUser(Long idUser) {
-    //     this.idUser = idUser;
-    // }
 
     public void setName(String name) {
         this.name = name;

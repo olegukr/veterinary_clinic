@@ -31,11 +31,13 @@ public class PatientController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/by-user/{idUser}")
-    public ResponseEntity<Patient> getPatientByIdUser(@PathVariable User user) {
-        return patientService.getPatientByIdUser(user)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping("/by-user/{userId}")
+    public ResponseEntity<List<Patient>> getPatientByIdUser(@PathVariable Long userId) {
+        // return patientService.getPatientByIdUser(userId)
+        //         .map(ResponseEntity::ok)
+        //         .orElse(ResponseEntity.notFound().build());
+        List<Patient> patients = patientService.getPatientByIdUser(userId);
+        return ResponseEntity.ok(patients);
     }
 
     @GetMapping
