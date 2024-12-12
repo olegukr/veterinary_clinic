@@ -1,5 +1,6 @@
 package org.factoriaf5.vcp.controller;
 
+import org.apache.catalina.User;
 import org.factoriaf5.vcp.model.Patient;
 import org.factoriaf5.vcp.services.PatientService;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +32,8 @@ public class PatientController {
     }
 
     @GetMapping("/by-user/{idUser}")
-    public ResponseEntity<Patient> getPatientByIdUser(@PathVariable Long idUser) {
-        return patientService.getPatientByIdUser(idUser)
+    public ResponseEntity<Patient> getPatientByIdUser(@PathVariable User user) {
+        return patientService.getPatientByIdUser(user)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

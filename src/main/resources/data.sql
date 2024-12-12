@@ -11,7 +11,7 @@ INSERT INTO users (id, username, password, usertype, phone) VALUES
 (default, 'susan_white', 'whitepassword', 'ADMIN', '5566778899'),
 (default, 'emma_black', 'emmablackpass', 'USER', '6677889900');
 
-INSERT INTO patients (id, id_user, name, age, breed, gender, image_url) VALUES
+INSERT INTO patients (id, user_id, name, age, breed, gender, image_url) VALUES
 (default, 1, 'Baxic', 5, 'Golden Retriever', 'M', 'https://example.com/images/baxic.jpg'),
 (default, 2, 'Tequila', 3, 'Chihuahua', 'W', 'https://example.com/images/tequila.jpg'),
 (default, 3, 'Blanchet', 8, 'Labrador', 'W', 'https://example.com/images/blanchet.jpg'),
