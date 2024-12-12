@@ -17,3 +17,11 @@ INSERT INTO patients (id, id_user, name, age, breed, gender, image_url) VALUES
 (default, 3, 'Blanchet', 8, 'Labrador', 'W', 'https://example.com/images/blanchet.jpg'),
 (default, 4, 'Daisy', 3, 'Bulldog', 'W', 'https://example.com/images/daisy.jpg'),
 (default, 5, 'Max', 2, 'Poodle', 'M', 'https://example.com/images/max.jpg');
+
+
+INSERT INTO treatments (id, treatment_type, description, treatment_date, patient_id) VALUES
+(default, 'Vaccination', 'Annual rabies vaccination', '2024-12-01', 1),  
+(default, 'Surgery', 'Spaying procedure', '2024-12-05', 2), 
+(default, 'Check-up', 'Routine health check-up', '2024-12-07', 3),  
+(default, 'Emergency', 'Treatment for chest pain', '2024-12-10', 4), 
+(default, 'Follow-up', 'Follow-up after vaccination', '2024-12-15', 5); 
