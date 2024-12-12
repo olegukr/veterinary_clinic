@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.factoriaf5.vcp.model.Appointment;
-import org.factoriaf5.vcp.model.AppointmentSatus;
+import org.factoriaf5.vcp.model.AppointmentStatus;
 import org.factoriaf5.vcp.model.ConsultationType;
 import org.factoriaf5.vcp.services.AppointmentService;
 import org.junit.jupiter.api.DisplayName;
@@ -28,7 +28,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest(controllers = AppointmentConroller.class)
+@WebMvcTest(controllers = AppointmentController.class)
 @AutoConfigureMockMvc(addFilters=false) //disable security
 public class AppointmentConrollerTest {
 
@@ -56,13 +56,13 @@ public class AppointmentConrollerTest {
             LocalDate.of(2024, 12, 01), 
             ConsultationType.EMERGENCY, 
             "Headage", 
-            AppointmentSatus.PENDING);
+            AppointmentStatus.PENDING);
 
         Appointment appointment2 = new Appointment( 
             LocalDate.of(2024, 12, 02), 
             ConsultationType.STANDARD, 
             "Routine health check-up", 
-            AppointmentSatus.COMPLETED);
+            AppointmentStatus.COMPLETED);
 
         appointments.add(appointment1);
         appointments.add(appointment2);
@@ -88,7 +88,7 @@ public class AppointmentConrollerTest {
         assertThat(response.getContentAsString(), containsString(LocalDate.of(2024,12,01).toString()));
         assertThat(response.getContentAsString(), containsString("Headage"));
         assertThat(response.getContentAsString(), containsString(ConsultationType.EMERGENCY.toString()));
-        assertThat(response.getContentAsString(), containsString(AppointmentSatus.PENDING.toString()));
+        assertThat(response.getContentAsString(), containsString(AppointmentStatus.PENDING.toString()));
         assertThat(response.getContentAsString(), equalTo(mapper.writeValueAsString(appointments)));
         // 
 // [{"id":1,"appointmentDate":"2024-12-01","consultation":"EMERGENCY","reason":"Headage","status":"PENDING"},

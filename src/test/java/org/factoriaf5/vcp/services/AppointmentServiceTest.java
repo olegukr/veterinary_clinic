@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.factoriaf5.vcp.model.Appointment;
-import org.factoriaf5.vcp.model.AppointmentSatus;
+import org.factoriaf5.vcp.model.AppointmentStatus;
 import org.factoriaf5.vcp.model.ConsultationType;
 import org.factoriaf5.vcp.repository.AppointmentRepository;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -42,13 +42,13 @@ public class AppointmentServiceTest {
             LocalDate.of(2024, 12, 01), 
             ConsultationType.EMERGENCY, 
             "Headage", 
-            AppointmentSatus.PENDING);
+            AppointmentStatus.PENDING);
 
         Appointment appointment2 = new Appointment( 
             LocalDate.of(2024, 12, 02), 
             ConsultationType.STANDARD, 
             "Headage", 
-            AppointmentSatus.COMPLETED);
+            AppointmentStatus.COMPLETED);
 
         appointments.add(appointment1);
         appointments.add(appointment2);
@@ -62,7 +62,7 @@ public class AppointmentServiceTest {
         
         assertThat(list.get(0).getConsultation(), is(ConsultationType.EMERGENCY));
         assertThat(list.get(0).getAppointmentDate(), is(LocalDate.of(2024, 12, 01)));
-        assertThat(list.get(0).getStatus(), is(AppointmentSatus.PENDING));
+        assertThat(list.get(0).getStatus(), is(AppointmentStatus.PENDING));
 
 
 

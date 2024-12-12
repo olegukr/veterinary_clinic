@@ -2,6 +2,8 @@ package org.factoriaf5.vcp.model;
 
 import java.time.LocalDate;
 
+import org.factoriaf5.vcp.dto.AppointmentDto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -28,20 +30,28 @@ public class Appointment {
     private String reason;
 
     @Enumerated(EnumType.STRING) // Store enum as string in the database
-    private AppointmentSatus status;
+    private AppointmentStatus status;
 
 
     
     public Appointment() {
     }
 
-    public Appointment(LocalDate appointmentDate, ConsultationType consltation, String reason, AppointmentSatus status) {
+    public Appointment(LocalDate appointmentDate, ConsultationType consltation, String reason, AppointmentStatus status) {
         this.id = generateId();
         this.appointmentDate = appointmentDate;
         this.consultation = consltation;
         this.reason = reason;
         this.status = status;
     }
+
+    public Appointment(AppointmentDto appointmentDto) {
+        this(appointmentDto.appointmentDate(), 
+        appointmentDto.consultation(), 
+        appointmentDto.reason(), 
+        appointmentDto.status());
+    }
+
 
     private static synchronized long generateId() {
         return ++idCounter;
@@ -83,11 +93,11 @@ public class Appointment {
         this.reason = reason;
     }
 
-    public AppointmentSatus getStatus() {
+    public AppointmentStatus getStatus() {
         return status;
     }
 
-    public void setStatus(AppointmentSatus status) {
+    public void setStatus(AppointmentStatus status) {
         this.status = status;
     }
 
