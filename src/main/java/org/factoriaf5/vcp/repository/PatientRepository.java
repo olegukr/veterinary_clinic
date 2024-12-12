@@ -11,6 +11,3 @@ import java.util.Optional;
 public interface PatientRepository extends JpaRepository<Patient, Long> {
     Optional<Patient> findByIdUser(User User);
 }
-public interface PatientRepository extends JpaRepository<Patient, Long> {
-    List<Patient> findByOwnerId(Long ownerId); // Найти пациентов по ID пользователя
-}
