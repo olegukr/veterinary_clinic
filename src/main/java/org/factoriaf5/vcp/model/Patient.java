@@ -22,8 +22,6 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //private Long idUser;
-    
     @Column(nullable = false)
     private String name;
 
