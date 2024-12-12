@@ -97,10 +97,6 @@ public class Patient {
         Patient.idCounter = idCounter;
     }
 
-    // public void setIdUser(Long idUser) {
-    //     this.idUser = idUser;
-    // }
-
     public void setName(String name) {
         this.name = name;
     }
