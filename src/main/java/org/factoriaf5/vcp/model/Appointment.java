@@ -50,12 +50,12 @@ public class Appointment {
         this.patient = patient;
     }
 
-    public Appointment(AppointmentDto appointmentDto, Patient patient) {
+    public Appointment(AppointmentDto appointmentDto) {
         this(appointmentDto.appointmentDate(), 
              appointmentDto.consultation(), 
              appointmentDto.reason(), 
              appointmentDto.status(),
-             patient);
+             appointmentDto.patient());
     }
 
     private static synchronized long generateId() {
