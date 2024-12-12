@@ -2,6 +2,7 @@ package org.factoriaf5.vcp.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -33,7 +34,7 @@ public class User {
     @Column(nullable = false)
     private String phone;
 
-    @OneToMany(mappedBy = "idUser")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Patient> patients;
 
     public User() {}
