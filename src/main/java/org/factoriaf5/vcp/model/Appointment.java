@@ -2,15 +2,38 @@ package org.factoriaf5.vcp.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="appointments")
 public class Appointment {
 
     private static long idCounter = 0;
 
-    private final long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
     private LocalDate appointmentDate;
+
+    @Enumerated(EnumType.STRING) // Store enum as string in the database
     private ConsultationType consultation;
+
     private String reason;
+
+    @Enumerated(EnumType.STRING) // Store enum as string in the database
     private AppointmentSatus status;
+
+
+    
+    public Appointment() {
+    }
 
     public Appointment(LocalDate appointmentDate, ConsultationType consltation, String reason, AppointmentSatus status) {
         this.id = generateId();

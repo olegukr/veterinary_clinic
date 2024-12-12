@@ -1,6 +1,9 @@
 package org.factoriaf5.vcp.model;
 
-public enum AppointmentSatus {
+
+public enum  AppointmentSatus {
     PENDING,
     COMPLETED,
+    SCHEDULED,
+    CANCELLED,
 }
