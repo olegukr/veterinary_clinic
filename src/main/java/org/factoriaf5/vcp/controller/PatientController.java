@@ -1,6 +1,6 @@
 package org.factoriaf5.vcp.controller;
 
-import org.apache.catalina.User;
+import org.factoriaf5.vcp.model.User;
 import org.factoriaf5.vcp.model.Patient;
 import org.factoriaf5.vcp.services.PatientService;
 import org.springframework.http.ResponseEntity;
