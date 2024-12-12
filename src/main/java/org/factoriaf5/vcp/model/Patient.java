@@ -1,5 +1,7 @@
 package org.factoriaf5.vcp.model;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -31,7 +33,7 @@ public class Patient {
     private String breed;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false) 
+    @Column(nullable = true) 
     private GenderType gender;
 
     @Column(nullable = false)
@@ -40,6 +42,12 @@ public class Patient {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    // @JsonSetter("user")
+    // public void setUserById(Long userId) {
+    //     this.user = new User();
+    //     this.user.setId(userId);
+    // } 
 
     public Patient() {
         }

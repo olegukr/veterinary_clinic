@@ -2,6 +2,8 @@ package org.factoriaf5.vcp.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -80,6 +82,10 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }
