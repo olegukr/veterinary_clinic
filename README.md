@@ -38,14 +38,12 @@ This project is a patient management system designed for Margarita's veterinary 
 
 ## Technical Requirements
 - Built with **Java** and **Spring Boot**.
-- Data stored in either an in-memory database (**H2**) or a Dockerized **MySQL** instance.
+- Data stored in either an in-memory database (**H2**).
 - Implements Object-Oriented Programming (OOP) principles:
   - Encapsulation
   - Layered architecture (controllers, services, repositories).
 - Includes **DTOs** for data transfer.
-- 70% test coverage:
-  - Unit tests for models, services, and controllers.
-- Dockerized for easy deployment.
+- Unit tests for models, services, and controllers.
 
 ---
 
@@ -53,14 +51,13 @@ This project is a patient management system designed for Margarita's veterinary 
 
 ### Prerequisites
 - Java 21 or higher
-- Docker (optional for MySQL setup)
 - Maven
 
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/<your-username>/patient-management-system.git
-   cd patient-management-system```
+   git clone https://github.com/olegukr/veterinary_clinic.git
+   cd veterinary_clinic```
 
 ### Activity diagram
  
