@@ -1,76 +1,182 @@
-# veterinary_clinic !!-
+# Patient Management System for Veterinary Clinic
 
-Project - Veterinary Clinic
-Giacomo F5 Classroom
-•
-12:19 (Modified at 13:58)
-Backend: Spring & Springboot
-•
-100 points
-Submission date: December 13.
-Project Context:
-Margarita is about to open her veterinary clinic for cats and dogs and asks us to create a patient management system. Margarita has asked us to create a rest API that stores data in an in-memory database (H2 Database) or dockerized MySQL, and can be consumed from that front end.
+## Project Description
+This project is a patient management system designed for Margarita's veterinary clinic, specializing in the care of cats and dogs. The application allows for the management of patients, appointments, and treatments, maintaining a detailed and organized record. It is built using Java and the Spring Boot framework.
 
-Project Description:
-The objective of this project is to develop a patient management system in Java that allows Margarita to list, add, edit and delete patients. The application will also allow users to manage their appointments efficiently (make appointments, view a list of appointments, modify and cancel appointments), keeping an organized record of them.
+---
 
-Project Objectives:
-1. Reinforce students' object-oriented programming concepts.
-2. Apply encapsulation to hide the internal implementation of classes and protect data.
-3. Develop a flowchart that explains the client management system.
-4. Develop the code that represents the proposed diagram
+## Features
+- **Patient Management**:
+  - Add, update, list, and delete patient records.
+  - Each patient profile includes:
+    - Name
+    - Age
+    - Breed
+    - Gender
+    - Identification number
+    - Owner's full name
+    - Owner's phone number
+  - Access patient data by identification number.
 
-. Functional Requirements of the Project:    
-- List, add, modify and delete patients.
-- Each patient must have a profile that includes:
-- name
-- age
-- race
-- gender
-- ID number
-- guardian's name and surname
-- guardian's phone number
-- A patient's data must be accessible from their ID number
-- The API must provide the treatments performed on each patient
-- List, add, modify and delete appointments.
-- Each appointment will include:
-   - Date and time
-   - Patient
-   - Standard / urgent consultation
-   - Reason for appointment
-   - Appointment status (pending, past)
+- **Appointment Management**:
+  - Schedule, update, list, and delete appointments.
+  - Each appointment includes:
+    - Date and time
+    - Patient
+    - Type of appointment (standard/urgent)
+    - Reason for the appointment
+    - Appointment status (pending/completed).
 
-Extras:
-Add image to each patient's profile (Using Firebase Storage)
-User registration 
-DTOs
-Dockerize
-Technical requirements of the Project:
-1. Knowledge of Java programming.
-2. Knowledge of Object-Oriented Programming (OOP).
-3. Good practices
-4. Unit tests (Models, Services and controllers)
+- **Treatment History**:
+  - View the history of treatments for each patient.
 
-Evaluation methods:  Team project.
+- **Optional Features**:
+  - Add images to patient profiles using Firebase Storage.
+  - User registration and management.
 
-Expected deliverables:
-1. A patient management system implemented in Java, using the Spring framework and its Spring Boot module, which meets the requirements mentioned above
-2. Controllers, Services and models tested.
-3. Test coverage: 70%
-4. Repository on GitHub with the corresponding README
-5. Screenshot of the testing coverage
-6. Presentation where the entire development process followed can be observed
+---
 
-Project Schedule: - 3-week Sprint
+## Technical Requirements
+- Built with **Java** and **Spring Boot**.
+- Data stored in either an in-memory database (**H2**) or a Dockerized **MySQL** instance.
+- Implements Object-Oriented Programming (OOP) principles:
+  - Encapsulation
+  - Layered architecture (controllers, services, repositories).
+- Includes **DTOs** for data transfer.
+- 70% test coverage:
+  - Unit tests for models, services, and controllers.
+- Dockerized for easy deployment.
 
-Performance criteria:
-The layers of the backend architecture must be well defined
-Database tables must be normalized
-Unit tests
+---
 
----------------------------------
-Team 1:
-Oksana
-Oleg
-Olena
-Vladimir
+## Getting Started
+
+### Prerequisites
+- Java 21 or higher
+- Docker (optional for MySQL setup)
+- Maven
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/<your-username>/patient-management-system.git
+   cd patient-management-system```
+
+### Activity diagram
+ 
+```mermaid
+graph TD
+    Start[Start]
+    Menu[User selects an option from the main menu]
+    
+    %% Filter by Date Workflow
+    FilterByDate[User selects 'Filter by Date']
+    EnterDate[User enters a date dd/mm/yyyy]
+    InvalidDate[System checks if the date is valid: Invalid?]
+    ShowError[Display error message: Invalid Date!]
+    Retry[User retries entering a valid date]
+    FetchMoments[Fetch moments for the selected date]
+    ShowList[Display list of moments]
+    ViewDone[User finishes viewing moments]
+    ShowMessage[Display message: Press any key to return to main menu]
+
+    %% Create Meeting Workflow
+    CreateMeeting[User selects 'Create a appointment']
+    EnterMeetingDetails[User enters appointment details: Date, Time, Reason, Patient]
+    SaveMeeting[System saves the appointment]
+    MeetingSuccess[System confirms appointment creation]
+
+    %% Create Pet Workflow
+    CreatePet[User selects 'Create a Pet']
+    EnterPetDetails[User enters pet details: Name, Age, Breed, Gender, Owner Info]
+    SavePet[System saves the pet]
+    PetSuccess[System confirms pet creation]
+
+    %% Connections
+    Start --> Menu
+    Menu --> FilterByDate
+    Menu --> CreateMeeting
+    Menu --> CreatePet
+
+    %% Filter by Date Flow
+    FilterByDate --> EnterDate
+    EnterDate --> InvalidDate
+    InvalidDate -->|Yes| ShowError
+    ShowError --> Retry
+    Retry --> EnterDate
+    InvalidDate -->|No| FetchMoments
+    FetchMoments --> ShowList
+    ShowList --> ViewDone
+    ViewDone --> ShowMessage
+    ShowMessage --> Menu
+
+    %% Create Meeting Flow
+    CreateMeeting --> EnterMeetingDetails
+    EnterMeetingDetails --> SaveMeeting
+    SaveMeeting --> MeetingSuccess
+    MeetingSuccess --> Menu
+
+    %% Create Pet Flow
+    CreatePet --> EnterPetDetails
+    EnterPetDetails --> SavePet
+    SavePet --> PetSuccess
+    PetSuccess --> Menu
+```
+
+### Class diagram
+
+```mermaid
+classDiagram
+    class Patient {
+        +String name
+        +int age
+        +String breed
+        +String gender
+        +String id
+        +String ownerName
+        +String ownerPhone
+        +List<Treatment> treatments
+        +addTreatment(Treatment treatment)
+        +getTreatments(): List<Treatment>
+    }
+    
+    class Appointment {
+        +String id
+        +Date date
+        +Time time
+        +String type
+        +String reason
+        +String status
+        +Patient patient
+        +updateStatus(String newStatus)
+    }
+    
+    class Treatment {
+        +String description
+        +Date date
+        +String result
+    }
+    
+    class User {
+        +String username
+        +String password
+        +String role
+        +authenticate(String password): boolean
+    }
+    
+    class System {
+        +List<Patient> patients
+        +List<Appointment> appointments
+        +addPatient(Patient patient)
+        +findPatient(String id): Patient
+        +addAppointment(Appointment appointment)
+        +findAppointmentsByDate(Date date): List<Appointment>
+    }
+
+    Patient "1" --> "*" Appointment : "has"
+    Patient "1" --> "*" Treatment : "has"
+    System "1" --> "*" Patient : "manages"
+    System "1" --> "*" Appointment : "manages"
+    User "1" --> "1" System : "accesses"
+```
+
