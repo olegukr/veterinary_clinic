@@ -7,12 +7,16 @@ import org.factoriaf5.vcp.dto.AppointmentDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 class AppointmentTest {
 
+    private Patient patient;
+
     @BeforeEach
-    void resetIdCounter() {
+    void setUp() {
+        User user = new User("testUser", "password", UserType.USER, "1234567890");
+
         Appointment.setIdCounter(0);
+        patient = new Patient("Buddy", user, 4, "Golden Retriever", GenderType.M, "https://example.com/images/buddy.jpg");
     }
 
     @Test
@@ -24,7 +28,7 @@ class AppointmentTest {
         AppointmentStatus status = AppointmentStatus.SCHEDULED;
 
         // Act
-        Appointment appointment = new Appointment(date, consultation, reason, status);
+        Appointment appointment = new Appointment(date, consultation, reason, status, patient);
 
         // Assert
         assertThat(appointment.getId()).isEqualTo(1); // ID is auto-incremented
@@ -32,6 +36,7 @@ class AppointmentTest {
         assertThat(appointment.getConsultation()).isEqualTo(consultation);
         assertThat(appointment.getReason()).isEqualTo(reason);
         assertThat(appointment.getStatus()).isEqualTo(status);
+        assertThat(appointment.getPatient()).isEqualTo(patient);
     }
 
     @Test
@@ -41,7 +46,8 @@ class AppointmentTest {
                 LocalDate.of(2024, 12, 15),
                 ConsultationType.STANDARD,
                 "Routine check-up",
-                AppointmentStatus.SCHEDULED
+                AppointmentStatus.SCHEDULED,
+                patient
         );
 
         // Act
@@ -52,13 +58,14 @@ class AppointmentTest {
         assertThat(appointment.getConsultation()).isEqualTo(dto.consultation());
         assertThat(appointment.getReason()).isEqualTo(dto.reason());
         assertThat(appointment.getStatus()).isEqualTo(dto.status());
+        assertThat(appointment.getPatient()).isEqualTo(dto.patient());
     }
 
     @Test
     void shouldIncrementIdCounter() {
         // Act
-        Appointment appointment1 = new Appointment(LocalDate.now(), ConsultationType.STANDARD, "Reason 1", AppointmentStatus.PENDING);
-        Appointment appointment2 = new Appointment(LocalDate.now(), ConsultationType.STANDARD, "Reason 2", AppointmentStatus.COMPLETED);
+        Appointment appointment1 = new Appointment(LocalDate.now(), ConsultationType.STANDARD, "Reason 1", AppointmentStatus.PENDING, patient);
+        Appointment appointment2 = new Appointment(LocalDate.now(), ConsultationType.STANDARD, "Reason 2", AppointmentStatus.COMPLETED, patient);
 
         // Assert
         assertThat(appointment1.getId()).isEqualTo(1);
@@ -79,12 +86,14 @@ class AppointmentTest {
         appointment.setConsultation(consultation);
         appointment.setReason(reason);
         appointment.setStatus(status);
+        appointment.setPatient(patient);
 
         // Assert
         assertThat(appointment.getAppointmentDate()).isEqualTo(date);
         assertThat(appointment.getConsultation()).isEqualTo(consultation);
         assertThat(appointment.getReason()).isEqualTo(reason);
         assertThat(appointment.getStatus()).isEqualTo(status);
+        assertThat(appointment.getPatient()).isEqualTo(patient);
     }
 
     @Test
@@ -93,7 +102,7 @@ class AppointmentTest {
         Appointment.setIdCounter(100);
 
         // Act
-        Appointment appointment = new Appointment(LocalDate.of(2024, 12, 15), ConsultationType.STANDARD, "Test", AppointmentStatus.SCHEDULED);
+        Appointment appointment = new Appointment(LocalDate.of(2024, 12, 15), ConsultationType.STANDARD, "Test", AppointmentStatus.SCHEDULED, patient);
 
         // Assert
         assertThat(Appointment.getIdCounter()).isEqualTo(101);
@@ -103,11 +112,13 @@ class AppointmentTest {
     @Test
     void shouldHandleMultipleAppointments() {
         // Act
-        Appointment appointment1 = new Appointment(LocalDate.now(), ConsultationType.STANDARD, "Reason 1", AppointmentStatus.PENDING);
-        Appointment appointment2 = new Appointment(LocalDate.now(), ConsultationType.EMERGENCY, "Reason 2", AppointmentStatus.CANCELLED);
+        Appointment appointment1 = new Appointment(LocalDate.now(), ConsultationType.STANDARD, "Reason 1", AppointmentStatus.PENDING, patient);
+        Appointment appointment2 = new Appointment(LocalDate.now(), ConsultationType.EMERGENCY, "Reason 2", AppointmentStatus.CANCELLED, patient);
 
         // Assert
         assertThat(appointment1.getId()).isEqualTo(1);
         assertThat(appointment2.getId()).isEqualTo(2);
+        assertThat(appointment1.getPatient()).isEqualTo(patient);
+        assertThat(appointment2.getPatient()).isEqualTo(patient);
     }
 }

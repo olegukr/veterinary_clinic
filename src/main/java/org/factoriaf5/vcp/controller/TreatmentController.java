@@ -1,5 +1,6 @@
 package org.factoriaf5.vcp.controller;
 
+import org.factoriaf5.vcp.model.Patient;
 import org.factoriaf5.vcp.model.Treatment;
 import org.factoriaf5.vcp.services.TreatmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +45,18 @@ public class TreatmentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTreatment(@PathVariable Long id) {
-        treatmentService.deleteTreatment(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deleteTreatment(@PathVariable Long id) {
+        try {
+            treatmentService.deleteTreatment(id);
+            return ResponseEntity.ok("Tratamiento eliminado exitosamente");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/by-patient/{patientId}")
+    public ResponseEntity<List<Treatment>> getPatientByIdUser(@PathVariable Long patientId) {
+        List<Treatment> treatments = treatmentService.getTreatmentByPatientID(patientId);
+        return ResponseEntity.ok(treatments);
     }
 }

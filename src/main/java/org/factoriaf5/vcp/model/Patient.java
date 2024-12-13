@@ -1,7 +1,9 @@
 package org.factoriaf5.vcp.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-//import org.springframework.web.multipart.MultipartFile;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -10,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -42,6 +45,12 @@ public class Patient {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Treatment> treatments;
+    
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Appointment> appointments;
+
     public Patient() {
         }
 
@@ -63,6 +72,10 @@ public class Patient {
         return user;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+ 
     public long getId() {
         return id;
     }
@@ -91,10 +104,6 @@ public class Patient {
         Patient.idCounter = idCounter;
     }
 
-    // public void setIdUser(Long idUser) {
-    //     this.idUser = idUser;
-    // }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -104,6 +113,7 @@ public class Patient {
     }
 
     public void setGender(GenderType gender) {
+        this.gender = gender;
     }
 
     public void setBreed(String breed) {

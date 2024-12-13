@@ -1,6 +1,6 @@
 package org.factoriaf5.vcp.controller;
 
-import org.apache.catalina.User;
+import org.factoriaf5.vcp.model.User;
 import org.factoriaf5.vcp.model.Patient;
 import org.factoriaf5.vcp.services.PatientService;
 import org.springframework.http.ResponseEntity;
@@ -31,11 +31,10 @@ public class PatientController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/by-user/{idUser}")
-    public ResponseEntity<Patient> getPatientByIdUser(@PathVariable User user) {
-        return patientService.getPatientByIdUser(user)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping("/by-user/{userId}")
+    public ResponseEntity<List<Patient>> getPatientByIdUser(@PathVariable Long userId) {
+        List<Patient> patients = patientService.getPatientByIdUser(userId);
+        return ResponseEntity.ok(patients);
     }
 
     @GetMapping
@@ -55,8 +54,13 @@ public class PatientController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePatient(@PathVariable Long id) {
-        patientService.deletePatient(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deletePatient(@PathVariable Long id) {
+        try {
+            patientService.deletePatient(id);
+            return ResponseEntity.ok("Paciente eliminado exitosamente");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
     }
 }

@@ -10,10 +10,12 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="appointments")
+@Table(name = "appointments")
 public class Appointment {
 
     private static long idCounter = 0;
@@ -32,26 +34,29 @@ public class Appointment {
     @Enumerated(EnumType.STRING) // Store enum as string in the database
     private AppointmentStatus status;
 
+    @ManyToOne
+    @JoinColumn(name = "patient_id", nullable = false) // Foreign key to the Patient table
+    private Patient patient;
 
-    
     public Appointment() {
     }
 
-    public Appointment(LocalDate appointmentDate, ConsultationType consltation, String reason, AppointmentStatus status) {
+    public Appointment(LocalDate appointmentDate, ConsultationType consultation, String reason, AppointmentStatus status, Patient patient) {
         this.id = generateId();
         this.appointmentDate = appointmentDate;
-        this.consultation = consltation;
+        this.consultation = consultation;
         this.reason = reason;
         this.status = status;
+        this.patient = patient;
     }
 
     public Appointment(AppointmentDto appointmentDto) {
         this(appointmentDto.appointmentDate(), 
-        appointmentDto.consultation(), 
-        appointmentDto.reason(), 
-        appointmentDto.status());
+             appointmentDto.consultation(), 
+             appointmentDto.reason(), 
+             appointmentDto.status(),
+             appointmentDto.patient());
     }
-
 
     private static synchronized long generateId() {
         return ++idCounter;
@@ -101,4 +106,11 @@ public class Appointment {
         this.status = status;
     }
 
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
 }

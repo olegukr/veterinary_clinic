@@ -1,6 +1,6 @@
 package org.factoriaf5.vcp.services;
 
-import org.apache.catalina.User;
+import org.factoriaf5.vcp.model.User;
 import org.factoriaf5.vcp.model.Patient;
 import org.factoriaf5.vcp.repository.PatientRepository;
 import org.springframework.stereotype.Service;
@@ -25,8 +25,8 @@ public class PatientService {
         return patientRepository.findById(id);
     }
 
-    public Optional<Patient> getPatientByIdUser(User user) {
-        return patientRepository.findByUser(user);
+    public List<Patient> getPatientByIdUser(Long userId) {
+        return patientRepository.findByUserId(userId);
     }
 
     public List<Patient> getAllPatients() {
@@ -41,6 +41,7 @@ public class PatientService {
                     patient.setBreed(updatedPatient.getBreed());
                     patient.setGender(updatedPatient.getGender());
                     patient.setImageUrl(updatedPatient.getImageUrl());
+                    patient.setUser(updatedPatient.getUser());
                     return patientRepository.save(patient);
                 })
                 .orElseThrow(() -> new RuntimeException("Patient not found"));
