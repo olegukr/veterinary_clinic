@@ -46,6 +46,7 @@ public class AppointmentService {
                     appointment.setConsultation(updatedAppointmentDto.consultation());
                     appointment.setReason(updatedAppointmentDto.reason());
                     appointment.setStatus(updatedAppointmentDto.status());
+                    appointment.setPatient(updatedAppointmentDto.patient());
                     return appointmentRepository.save(appointment);
                 })
                 .orElseThrow(() -> new RuntimeException("Appointment not found with ID: " + id));
@@ -78,6 +79,9 @@ public class AppointmentService {
                         case "status":
                             appointment.setStatus(AppointmentStatus.valueOf(value.toString()));
                             break;
+                        // case "patient":
+                        //     appointment.setPatient(value.toString());
+                        //     break;    
                         default:
                             throw new IllegalArgumentException("Invalid field: " + key);
                     }
