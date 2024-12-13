@@ -91,4 +91,7 @@ public class AppointmentService {
             .orElseThrow(() -> new RuntimeException("Appointment not found with ID: " + id));
     }
 
+    public List<Appointment> getAppointmentByPatientID(Long patientId) {
+        return appointmentRepository.findByPatientId(patientId);
+    }    
 }

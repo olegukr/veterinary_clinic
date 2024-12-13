@@ -132,5 +132,20 @@ public class AppointmentController {
         }
     }
 
+    // @GetMapping("/by-patient/{patientId}")
+    // public ResponseEntity<List<Appointment>> getPatientByIdUser(@PathVariable Long patientId) {
+    //     List<Appointment> appointments = appointmentService.getAppointmentByPatientID(patientId);
+    //     return ResponseEntity.ok(appointments);
+    // }
+
+    @GetMapping("/by-patient/{patientId}")
+    public ResponseEntity<?> getAppointmentsByPatientId(@PathVariable Long patientId) {
+        try {
+            List<Appointment> appointments = appointmentService.getAppointmentByPatientID(patientId);
+            return ResponseEntity.ok(appointments); // Return 200 OK with the list of appointments
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error retrieving appointments: " + e.getMessage());
+        }
+    }
 
 }
