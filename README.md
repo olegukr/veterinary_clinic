@@ -177,4 +177,4 @@ classDiagram
     User "1" --> "1" System : "accesses"
 ```
 ## Authors
-Olena Myroshnykova, Oleg Poberezhets, Oksana Muzalevska, Olena Myroshnykova.
+Olena Myroshnykova, Oleg Poberezhets, Oksana Muzalevska, Vladimir Yushkevich.
