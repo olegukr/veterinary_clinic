@@ -176,4 +176,5 @@ classDiagram
     System "1" --> "*" Appointment : "manages"
     User "1" --> "1" System : "accesses"
 ```
-
+## Authors
+Olena Myroshnykova, Oleg Poberezhets, Oksana Muzalevska, Olena Myroshnykova.
